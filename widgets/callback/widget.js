@@ -598,7 +598,6 @@
                 }
             }
             window.addEventListener('scroll', checkScroll, { passive: true });
-            checkScroll(); // проверить сразу (короткая страница)
         }
     }
 
