@@ -94,7 +94,8 @@ class Auth
     public static function requireAuth(): void
     {
         if (!self::check()) {
-            header('Location: /auth/login');
+            $base = rtrim(dirname($_SERVER['SCRIPT_NAME'] ?? ''), '/\\');
+            header('Location: ' . $base . '/auth/login');
             exit;
         }
     }
