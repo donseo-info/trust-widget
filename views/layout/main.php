@@ -6,7 +6,7 @@
 <title>Trust Widget</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
-<link rel="stylesheet" href="/assets/css/admin.css">
+<link rel="stylesheet" href="<?= url('assets/css/admin.css') ?>">
 </head>
 <body>
 
@@ -19,21 +19,21 @@
     </div>
     <ul class="tw-nav">
       <li class="<?= $_view === 'admin/dashboard' ? 'active' : '' ?>">
-        <a href="/"><i class="bi bi-speedometer2"></i> Дашборд</a>
+        <a href="<?= url() ?>"><i class="bi bi-speedometer2"></i> Дашборд</a>
       </li>
       <li class="<?= str_starts_with($_view ?? '', 'admin/sites') ? 'active' : '' ?>">
-        <a href="/sites"><i class="bi bi-globe2"></i> Сайты</a>
+        <a href="<?= url('sites') ?>"><i class="bi bi-globe2"></i> Сайты</a>
       </li>
       <li class="<?= str_starts_with($_view ?? '', 'admin/leads') ? 'active' : '' ?>">
-        <a href="/leads"><i class="bi bi-people"></i> Заявки</a>
+        <a href="<?= url('leads') ?>"><i class="bi bi-people"></i> Заявки</a>
       </li>
       <li class="<?= str_starts_with($_view ?? '', 'admin/stats') ? 'active' : '' ?>">
-        <a href="/stats"><i class="bi bi-bar-chart"></i> Статистика</a>
+        <a href="<?= url('stats') ?>"><i class="bi bi-bar-chart"></i> Статистика</a>
       </li>
     </ul>
     <div class="tw-sidebar-footer">
       <span class="text-muted small"><i class="bi bi-person-circle"></i> <?= htmlspecialchars($_userName ?? '') ?></span>
-      <a href="/auth/logout" class="btn btn-sm btn-outline-danger mt-2 w-100">Выйти</a>
+      <a href="<?= url('auth/logout') ?>" class="btn btn-sm btn-outline-danger mt-2 w-100">Выйти</a>
     </div>
   </nav>
 
@@ -44,6 +44,7 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="/assets/js/admin.js"></script>
+<script>const APP_BASE = '<?= APP_BASE ?>';</script>
+<script src="<?= url('assets/js/admin.js') ?>"></script>
 </body>
 </html>

@@ -1,7 +1,7 @@
 <?php function esc($v): string { return htmlspecialchars((string)$v, ENT_QUOTES, 'UTF-8'); } ?>
 <div class="tw-page-header d-flex justify-content-between align-items-center flex-wrap gap-2">
   <h1 class="tw-page-title"><i class="bi bi-bar-chart"></i> Статистика</h1>
-  <form method="GET" action="/stats" class="d-flex gap-2 align-items-center flex-wrap">
+  <form method="GET" action="<?= url('stats') ?>" class="d-flex gap-2 align-items-center flex-wrap">
     <select name="site" class="form-select form-select-sm" style="width:auto">
       <option value="">Все сайты</option>
       <?php foreach ($sites as $s): ?>

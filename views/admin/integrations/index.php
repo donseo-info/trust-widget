@@ -1,6 +1,6 @@
 <?php function esc($v): string { return htmlspecialchars((string)$v, ENT_QUOTES, 'UTF-8'); } ?>
 <div class="tw-page-header">
-  <a href="/sites/<?= $site['id'] ?>" class="text-muted small"><i class="bi bi-arrow-left"></i> <?= esc($site['name']) ?></a>
+  <a href="<?= url('sites/' . $site['id']) ?>" class="text-muted small"><i class="bi bi-arrow-left"></i> <?= esc($site['name']) ?></a>
   <h1 class="tw-page-title"><i class="bi bi-plug"></i> Интеграции</h1>
 </div>
 
@@ -197,7 +197,7 @@ async function saveIntegration(type, siteId) {
   const form = document.getElementById('form-' + type);
   const data = new FormData(form);
   data.set('type', type);
-  const r = await fetch('/sites/' + siteId + '/integrations', {method: 'POST', body: new URLSearchParams(data)});
+  const r = await fetch(APP_BASE + '/sites/' + siteId + '/integrations', {method: 'POST', body: new URLSearchParams(data)});
   const d = await r.json();
   showResult('result-' + type, d.ok, d.ok ? 'Сохранено' : (d.error || 'Ошибка'));
 }
@@ -206,7 +206,7 @@ async function testTelegram(siteId) {
   const form = document.getElementById('form-telegram');
   const data = new FormData(form);
   data.set('type', 'telegram');
-  const r = await fetch('/sites/' + siteId + '/integrations/test-telegram', {method: 'POST', body: new URLSearchParams(data)});
+  const r = await fetch(APP_BASE + '/sites/' + siteId + '/integrations/test-telegram', {method: 'POST', body: new URLSearchParams(data)});
   const d = await r.json();
   showResult('result-telegram', d.ok, d.ok ? '✅ Сообщение отправлено!' : '❌ ' + (d.error || 'Ошибка'));
 }
@@ -214,7 +214,7 @@ async function testTelegram(siteId) {
 async function testBitrix(siteId) {
   const form = document.getElementById('form-bitrix24');
   const data = new FormData(form);
-  const r = await fetch('/sites/' + siteId + '/integrations/test-bitrix', {method: 'POST', body: new URLSearchParams(data)});
+  const r = await fetch(APP_BASE + '/sites/' + siteId + '/integrations/test-bitrix', {method: 'POST', body: new URLSearchParams(data)});
   const d = await r.json();
   showResult('result-bitrix24', d.ok, d.ok ? '✅ Тестовый лид создан!' : '❌ ' + (d.error || 'Ошибка'));
 }

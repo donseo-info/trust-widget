@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Вход — Trust Widget</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="/assets/css/admin.css">
+<link rel="stylesheet" href="<?= url('assets/css/admin.css') ?>">
 </head>
 <body class="tw-login-body">
 <div class="tw-login-wrap">
@@ -18,7 +18,7 @@
   <div class="alert alert-danger">Неверный email или пароль</div>
   <?php endif; ?>
 
-  <form method="POST" action="/auth/login">
+  <form method="POST" action="<?= url('auth/login') ?>">
     <div class="mb-3">
       <label class="form-label">Email / логин</label>
       <input type="text" name="email" class="form-control" autofocus required>

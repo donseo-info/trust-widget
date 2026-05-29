@@ -14,7 +14,7 @@ function fmtPhone(string $p): string {
 <div class="tw-page-header d-flex justify-content-between align-items-center">
   <h1 class="tw-page-title"><i class="bi bi-people"></i> Заявки</h1>
   <div class="d-flex gap-2 align-items-center flex-wrap">
-    <form method="GET" action="/leads" class="d-flex gap-2 flex-wrap">
+    <form method="GET" action="<?= url('leads') ?>" class="d-flex gap-2 flex-wrap">
       <select name="site" class="form-select form-select-sm" style="width:auto">
         <option value="">Все сайты</option>
         <?php foreach ($sites as $s): ?>
@@ -52,7 +52,7 @@ function fmtPhone(string $p): string {
           <?php endif; ?>
         </td>
         <td>
-          <a href="/sites/<?= $l['site_id'] ?>"><?= esc($l['site_name']) ?></a>
+          <a href="<?= url('sites/' . $l['site_id']) ?>"><?= esc($l['site_name']) ?></a>
           <?php if ($l['page_url']): ?>
           <br><a href="<?= esc($l['page_url']) ?>" target="_blank" class="text-muted small" style="max-width:200px;display:inline-block;overflow:hidden;white-space:nowrap;text-overflow:ellipsis">
             <?= esc(parse_url($l['page_url'], PHP_URL_PATH) ?: '/') ?>
@@ -93,7 +93,7 @@ function fmtPhone(string $p): string {
         <?php for ($p = 1; $p <= $pages; $p++): ?>
         <li class="page-item <?= $p === $page ? 'active' : '' ?>">
           <a class="page-link"
-             href="/leads?<?= $site_id ? 'site=' . $site_id . '&' : '' ?><?= $widget_slug ? 'widget=' . urlencode($widget_slug) . '&' : '' ?>page=<?= $p ?>">
+             href="<?= url('leads') ?>?<?= $site_id ? 'site=' . $site_id . '&' : '' ?><?= $widget_slug ? 'widget=' . urlencode($widget_slug) . '&' : '' ?>page=<?= $p ?>">
             <?= $p ?>
           </a>
         </li>
@@ -108,7 +108,7 @@ function fmtPhone(string $p): string {
 const CSRF = '<?= $__csrfToken ?? '' ?>';
 async function deleteLead(id) {
   if (!confirm('Удалить заявку?')) return;
-  const r = await fetch('/leads/' + id + '/delete', {
+  const r = await fetch(APP_BASE + '/leads/' + id + '/delete', {
     method: 'POST',
     body: new URLSearchParams({_csrf: CSRF})
   });

@@ -56,7 +56,7 @@ function fmtPhone(string $p): string {
 <div class="tw-card mb-4">
   <div class="tw-card-header d-flex justify-content-between align-items-center">
     <h5 class="mb-0"><i class="bi bi-globe2"></i> Сайты</h5>
-    <a href="/sites/create" class="btn btn-sm btn-primary"><i class="bi bi-plus"></i> Добавить сайт</a>
+    <a href="<?= url('sites/create') ?>" class="btn btn-sm btn-primary"><i class="bi bi-plus"></i> Добавить сайт</a>
   </div>
   <div class="table-responsive">
     <table class="table tw-table mb-0">
@@ -64,7 +64,7 @@ function fmtPhone(string $p): string {
       <tbody>
       <?php foreach ($sites as $s): ?>
       <tr>
-        <td><a href="/sites/<?= $s['id'] ?>"><?= esc($s['name']) ?></a></td>
+        <td><a href="<?= url('sites/' . $s['id']) ?>"><?= esc($s['name']) ?></a></td>
         <td><span class="text-muted"><?= esc($s['domain']) ?></span></td>
         <td><code class="small"><?= esc($s['api_key']) ?></code></td>
         <td><?= (int)$s['lead_count'] ?></td>
@@ -75,11 +75,11 @@ function fmtPhone(string $p): string {
             <span class="badge bg-secondary">Отключён</span>
           <?php endif; ?>
         </td>
-        <td><a href="/sites/<?= $s['id'] ?>" class="btn btn-sm btn-outline-secondary">Настройки</a></td>
+        <td><a href="<?= url('sites/' . $s['id']) ?>" class="btn btn-sm btn-outline-secondary">Настройки</a></td>
       </tr>
       <?php endforeach; ?>
       <?php if (empty($sites)): ?>
-      <tr><td colspan="6" class="text-center text-muted py-4">Нет сайтов. <a href="/sites/create">Добавить первый</a></td></tr>
+      <tr><td colspan="6" class="text-center text-muted py-4">Нет сайтов. <a href="<?= url('sites/create') ?>">Добавить первый</a></td></tr>
       <?php endif; ?>
       </tbody>
     </table>
@@ -90,7 +90,7 @@ function fmtPhone(string $p): string {
 <div class="tw-card">
   <div class="tw-card-header d-flex justify-content-between align-items-center">
     <h5 class="mb-0"><i class="bi bi-people"></i> Последние заявки</h5>
-    <a href="/leads" class="btn btn-sm btn-outline-secondary">Все заявки</a>
+    <a href="<?= url('leads') ?>" class="btn btn-sm btn-outline-secondary">Все заявки</a>
   </div>
   <div class="table-responsive">
     <table class="table tw-table mb-0">

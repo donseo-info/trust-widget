@@ -1,7 +1,7 @@
 <?php function esc($v): string { return htmlspecialchars((string)$v, ENT_QUOTES, 'UTF-8'); } ?>
 <div class="tw-page-header d-flex justify-content-between align-items-center">
   <h1 class="tw-page-title"><i class="bi bi-globe2"></i> Сайты</h1>
-  <a href="/sites/create" class="btn btn-primary"><i class="bi bi-plus"></i> Добавить сайт</a>
+  <a href="<?= url('sites/create') ?>" class="btn btn-primary"><i class="bi bi-plus"></i> Добавить сайт</a>
 </div>
 
 <div class="tw-card">
@@ -16,7 +16,7 @@
       <tbody>
       <?php foreach ($sites as $s): ?>
       <tr id="site-row-<?= $s['id'] ?>">
-        <td><a href="/sites/<?= $s['id'] ?>"><?= esc($s['name']) ?></a></td>
+        <td><a href="<?= url('sites/' . $s['id']) ?>"><?= esc($s['name']) ?></a></td>
         <td class="text-muted"><?= esc($s['domain']) ?></td>
         <td><code class="small"><?= esc($s['api_key']) ?></code></td>
         <td><?= (int)$s['lead_count'] ?></td>
@@ -27,7 +27,7 @@
         </td>
         <td class="text-muted small"><?= date('d.m.Y', strtotime($s['created_at'])) ?></td>
         <td class="text-end">
-          <a href="/sites/<?= $s['id'] ?>" class="btn btn-sm btn-outline-secondary">Открыть</a>
+          <a href="<?= url('sites/' . $s['id']) ?>" class="btn btn-sm btn-outline-secondary">Открыть</a>
           <button class="btn btn-sm btn-outline-warning"
                   onclick="toggleSite(<?= $s['id'] ?>, '<?= $s['api_key'] ?>')">
             <?= $s['is_active'] ? 'Откл.' : 'Вкл.' ?>
@@ -39,7 +39,7 @@
       <?php endforeach; ?>
       <?php if (empty($sites)): ?>
       <tr><td colspan="7" class="text-center text-muted py-5">
-        Нет сайтов. <a href="/sites/create">Добавить первый</a>
+        Нет сайтов. <a href="<?= url('sites/create') ?>">Добавить первый</a>
       </td></tr>
       <?php endif; ?>
       </tbody>
@@ -50,13 +50,13 @@
 <script>
 const CSRF = '<?= $__csrfToken ?? '' ?>';
 async function toggleSite(id) {
-  const r = await fetch('/sites/' + id + '/toggle', {method:'POST', body: new URLSearchParams({_csrf: CSRF})});
+  const r = await fetch(APP_BASE + '/sites/' + id + '/toggle', {method:'POST', body: new URLSearchParams({_csrf: CSRF})});
   const d = await r.json();
   if (d.ok) location.reload();
 }
 async function deleteSite(id) {
   if (!confirm('Удалить сайт и все данные?')) return;
-  const r = await fetch('/sites/' + id + '/delete', {method:'POST', body: new URLSearchParams({_csrf: CSRF})});
+  const r = await fetch(APP_BASE + '/sites/' + id + '/delete', {method:'POST', body: new URLSearchParams({_csrf: CSRF})});
   const d = await r.json();
   if (d.ok) document.getElementById('site-row-' + id)?.remove();
 }

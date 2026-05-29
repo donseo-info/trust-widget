@@ -1,12 +1,12 @@
 <?php function esc($v): string { return htmlspecialchars((string)$v, ENT_QUOTES, 'UTF-8'); } ?>
 <div class="tw-page-header d-flex justify-content-between align-items-center">
   <div>
-    <a href="/sites" class="text-muted small"><i class="bi bi-arrow-left"></i> Сайты</a>
+    <a href="<?= url('sites') ?>" class="text-muted small"><i class="bi bi-arrow-left"></i> Сайты</a>
     <h1 class="tw-page-title mb-0"><?= esc($site['name']) ?></h1>
     <div class="text-muted"><?= esc($site['domain']) ?></div>
   </div>
   <div class="d-flex gap-2">
-    <a href="/sites/<?= $site['id'] ?>/edit" class="btn btn-outline-secondary">
+    <a href="<?= url('sites/' . $site['id'] . '/edit') ?>" class="btn btn-outline-secondary">
       <i class="bi bi-pencil"></i> Редактировать
     </a>
   </div>
@@ -70,7 +70,7 @@
         </div>
       </div>
       <div class="tw-widget-card-actions">
-        <a href="/sites/<?= $site['id'] ?>/widgets/<?= esc($w['slug']) ?>"
+        <a href="<?= url('sites/' . $site['id'] . '/widgets/' . esc($w['slug'])) ?>"
            class="btn btn-sm btn-primary">Настройки</a>
       </div>
     </div>
@@ -81,7 +81,7 @@
 <!-- Quick links -->
 <div class="row g-3">
   <div class="col-md-4">
-    <a href="/sites/<?= $site['id'] ?>/integrations" class="tw-quick-link">
+    <a href="<?= url('sites/' . $site['id'] . '/integrations') ?>" class="tw-quick-link">
       <i class="bi bi-plug"></i>
       <div>
         <strong>Интеграции</strong>
@@ -90,7 +90,7 @@
     </a>
   </div>
   <div class="col-md-4">
-    <a href="/leads?site=<?= $site['id'] ?>" class="tw-quick-link">
+    <a href="<?= url('leads?site=' . $site['id']) ?>" class="tw-quick-link">
       <i class="bi bi-people"></i>
       <div>
         <strong>Заявки</strong>
@@ -191,7 +191,7 @@ function copyCode(btn) {
 <script>
 const CSRF = '<?= $__csrfToken ?? '' ?>';
 async function toggleDebug() {
-  const r = await fetch('/sites/<?= $site['id'] ?>/toggle-debug', {
+  const r = await fetch(APP_BASE + '/sites/<?= $site['id'] ?>/toggle-debug', {
     method: 'POST', body: new URLSearchParams({_csrf: CSRF})
   });
   const d = await r.json();

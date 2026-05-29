@@ -4,11 +4,11 @@ $str = fn(string $k, string $d) => $c[$k] ?? $d;
 $int = fn(string $k, int $d) => (int)($c[$k] ?? $d);
 ?>
 <div class="tw-page-header">
-  <a href="/sites/<?= $site['id'] ?>" class="text-muted small"><i class="bi bi-arrow-left"></i> <?= esc($site['name']) ?></a>
+  <a href="<?= url('sites/' . $site['id']) ?>" class="text-muted small"><i class="bi bi-arrow-left"></i> <?= esc($site['name']) ?></a>
   <h1 class="tw-page-title"><i class="bi bi-telephone"></i> Обратный звонок</h1>
 </div>
 
-<form method="POST" action="/sites/<?= $site['id'] ?>/widgets/callback">
+<form method="POST" action="<?= url('sites/' . $site['id'] . '/widgets/callback') ?>">
   <input type="hidden" name="_csrf" value="<?= esc($__csrfToken ?? '') ?>">
 
   <div class="row g-4">

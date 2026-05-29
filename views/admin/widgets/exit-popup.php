@@ -13,11 +13,11 @@ $cfg = $config['variants'] ?? [];
 $enabled = $config['variants_enabled'] ?? ['A', 'B', 'C'];
 ?>
 <div class="tw-page-header">
-  <a href="/sites/<?= $site['id'] ?>" class="text-muted small"><i class="bi bi-arrow-left"></i> <?= esc($site['name']) ?></a>
+  <a href="<?= url('sites/' . $site['id']) ?>" class="text-muted small"><i class="bi bi-arrow-left"></i> <?= esc($site['name']) ?></a>
   <h1 class="tw-page-title"><i class="bi bi-door-open"></i> Exit Popup</h1>
 </div>
 
-<form id="widget-form" method="POST" action="/sites/<?= $site['id'] ?>/widgets/exit_popup">
+<form id="widget-form" method="POST" action="<?= url('sites/' . $site['id'] . '/widgets/exit_popup') ?>">
   <input type="hidden" name="_csrf" value="<?= esc($__csrfToken ?? '') ?>">
 
   <div class="tw-card mb-4">
