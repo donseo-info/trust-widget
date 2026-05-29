@@ -1,4 +1,4 @@
 config.local.php
-config.php
+setup.php
 logs/*.log
 .DS_Store
