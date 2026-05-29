@@ -66,6 +66,11 @@ abstract class Controller
 
     protected function redirect(string $url): void
     {
+        // Prepend base path if app lives in a subdirectory
+        $base = rtrim(dirname($_SERVER['SCRIPT_NAME'] ?? ''), '/\\');
+        if ($base !== '' && str_starts_with($url, '/') && !str_starts_with($url, $base)) {
+            $url = $base . $url;
+        }
         header('Location: ' . $url);
         exit;
     }
