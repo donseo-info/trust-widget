@@ -7,8 +7,12 @@
 define('TW_ROOT', dirname(__FILE__));
 define('TW_VERSION', '1.0.0');
 
-// Base URL path when app is in a subdirectory (e.g. /trust-widget)
-define('APP_BASE', rtrim(dirname($_SERVER['SCRIPT_NAME'] ?? ''), '/\\'));
+// Base URL path — вычисляется от DOCUMENT_ROOT, не зависит от текущего скрипта
+define('APP_BASE', rtrim(str_replace(
+    rtrim($_SERVER['DOCUMENT_ROOT'] ?? '', '/'),
+    '',
+    TW_ROOT
+), '/\\'));
 
 /** Build URL with base path prefix. */
 function url(string $path = ''): string {
