@@ -571,7 +571,7 @@
 
             function tryAutoOpen() {
                 if (autoOpened) return;
-                if (!timeReached) return;
+                if (!timeReached || !scrollReached) return;
                 if (popup.classList.contains('scw-visible')) return;
                 autoOpened = true;
                 window.__TW.log('callback', 'Авто-открытие: timeReached=' + timeReached + ' scrollReached=' + scrollReached);
