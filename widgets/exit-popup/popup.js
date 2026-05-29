@@ -162,13 +162,14 @@
             _csrf:        window._EI_csrf || ''
           });
           /* Цель «лид» в Яндекс.Метрику — только если ещё не отправляли (кука 30 дней) */
-          var goalLead = window._EI_ym && window._EI_ym.goal_lead;
-          var eiSentCookie = !!document.cookie.match(/_ei_sent=1/);
-          window.__TW && window.__TW.log('popup', 'Кука _ei_sent=1:', eiSentCookie ? 'есть — цель не отправляем' : 'нет');
+          var goalLead   = window._EI_ym && window._EI_ym.goal_lead;
+          var cookieName = 'tw_goal_' + goalLead;
+          var eiSentCookie = goalLead ? !!document.cookie.match(new RegExp(cookieName + '=1')) : false;
+          window.__TW && window.__TW.log('popup', 'Кука ' + cookieName + ':', eiSentCookie ? 'есть — цель не отправляем' : 'нет');
           if (goalLead && cid && window.ym && !eiSentCookie) {
             try { ym(cid, 'reachGoal', goalLead); window.__TW && window.__TW.log('popup', 'reachGoal(lead) отправлен:', goalLead, 'counter=' + cid); } catch (e) {}
             var exp = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toUTCString();
-            document.cookie = '_ei_sent=1;path=/;expires=' + exp + ';SameSite=Lax';
+            document.cookie = cookieName + '=1;path=/;expires=' + exp + ';SameSite=Lax';
           }
         });
 

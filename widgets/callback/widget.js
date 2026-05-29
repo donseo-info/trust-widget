@@ -516,13 +516,15 @@
 
                 // ── Цель в Яндекс.Метрику (сразу, в браузере) ──
                 try {
-                    var dupCookie = !!document.cookie.match(/scw_ym_goal=1/);
-                    window.__TW.log('callback', 'Кука YM-цели scw_ym_goal=1:', dupCookie ? 'уже есть — цель не отправляем' : 'нет — отправляем');
+                    var goalName   = WIDGET_CONFIG.ymGoal;
+                    var cookieName = 'tw_goal_' + goalName;
+                    var dupCookie  = !!document.cookie.match(new RegExp(cookieName + '=1'));
+                    window.__TW.log('callback', 'Кука ' + cookieName + ':', dupCookie ? 'уже есть — цель не отправляем' : 'нет — отправляем');
                     if (WIDGET_CONFIG.ymCounterId && typeof ym === 'function' && !dupCookie) {
-                        ym(WIDGET_CONFIG.ymCounterId, 'reachGoal', WIDGET_CONFIG.ymGoal);
-                        window.__TW.log('callback', 'reachGoal отправлен:', WIDGET_CONFIG.ymGoal, 'counter=' + WIDGET_CONFIG.ymCounterId);
+                        ym(WIDGET_CONFIG.ymCounterId, 'reachGoal', goalName);
+                        window.__TW.log('callback', 'reachGoal отправлен:', goalName, 'counter=' + WIDGET_CONFIG.ymCounterId);
                         var _d = new Date(); _d.setMonth(_d.getMonth() + 1);
-                        document.cookie = 'scw_ym_goal=1;expires=' + _d.toUTCString() + ';path=/';
+                        document.cookie = cookieName + '=1;expires=' + _d.toUTCString() + ';path=/';
                     }
                 } catch (e) { window.__TW.log('callback', 'ошибка reachGoal:', e.message); }
 
