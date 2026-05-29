@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS users (
 
 -- Default admin (password: admin123 — change immediately)
 INSERT IGNORE INTO users (email, password, name, role)
-VALUES ('admin@localhost', '$2y$12$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'Admin', 'admin');
+VALUES ('admin@localhost', '$2y$12$B4MpT.aRZluUvsNO4AQB8OZTGHHfxeDgjpaXKquXOA0tyPFAFMgqW', 'Admin', 'admin');
 
 -- ─── Sites ────────────────────────────────────────────────────────────────────
 CREATE TABLE IF NOT EXISTS sites (
