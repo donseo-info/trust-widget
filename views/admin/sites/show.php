@@ -137,7 +137,7 @@
         <?php
           $proto = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
           $host  = $_SERVER['HTTP_HOST'] ?? 'localhost';
-          $base  = $proto . '://' . $host;
+          $base  = $proto . '://' . $host . APP_BASE;
           $key   = $site['api_key'];
 
           $loaderUrl   = $base . '/widgets/loader.php?key=' . $key;
