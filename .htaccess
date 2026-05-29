@@ -1,5 +1,6 @@
 Options -Indexes
 RewriteEngine On
+RewriteBase /trust-widget/
 
 # Block direct access to sensitive dirs (db/install.php доступен напрямую)
 RewriteRule ^(core|models|controllers|views|logs)/ - [F,L]
