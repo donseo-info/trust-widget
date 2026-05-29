@@ -1,0 +1,6 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    { "name": "trust-test", "runtimeExecutable": "php", "runtimeArgs": ["-S", "127.0.0.1:8787", "-t", ".", "router.php"], "port": 8787 }
+  ]
+}

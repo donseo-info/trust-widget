@@ -1,0 +1,10 @@
+Options -Indexes
+RewriteEngine On
+
+# Block direct access to sensitive dirs
+RewriteRule ^(core|models|controllers|views|logs|db)/ - [F,L]
+
+# Route everything (except real files and API) through index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(?!api/|widgets/) index.php [QSA,L]

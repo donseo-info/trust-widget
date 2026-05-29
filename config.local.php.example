@@ -1,0 +1,11 @@
+<?php
+// Copy to config.local.php and fill in real values
+
+define('DB_HOST', 'localhost');
+define('DB_PORT', '3306');
+define('DB_NAME', 'trust_widget');
+define('DB_USER', 'root');
+define('DB_PASS', 'your_password');
+
+define('CSRF_SECRET', 'your-32-char-random-secret-here!!');
+define('APP_DEBUG', false);
