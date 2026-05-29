@@ -24,7 +24,7 @@ $siteId = (int)$site['id'];
 
 $proto   = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
 $host    = $_SERVER['HTTP_HOST'] ?? 'localhost';
-$base    = $proto . '://' . $host;
+$base    = $proto . '://' . $host . APP_BASE;
 
 // Активные виджеты сайта
 $activeWidgets = $db->query(

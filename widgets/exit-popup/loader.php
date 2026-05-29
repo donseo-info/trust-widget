@@ -30,7 +30,7 @@ $config = $raw ? (json_decode($raw['config'], true) ?: []) : [];
 
 $proto    = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
 $host     = $_SERVER['HTTP_HOST'] ?? 'localhost';
-$base     = $proto . '://' . $host;
+$base     = $proto . '://' . $host . APP_BASE;
 $gateUrl  = $base . '/api/gate.php';
 
 // Per-variant configs for popup scripts

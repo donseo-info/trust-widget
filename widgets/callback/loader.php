@@ -42,7 +42,7 @@ if ($ymRow) {
 
 $proto   = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
 $host    = $_SERVER['HTTP_HOST'] ?? 'localhost';
-$base    = $proto . '://' . $host;
+$base    = $proto . '://' . $host . APP_BASE;
 $submitUrl = $base . '/api/submit.php';
 
 // CSRF token for this 5-min window
