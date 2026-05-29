@@ -571,28 +571,25 @@
 
             function tryAutoOpen() {
                 if (autoOpened) return;
-                if (!timeReached || !scrollReached) return;
+                if (!timeReached && !scrollReached) return;
                 if (popup.classList.contains('scw-visible')) return;
-                autoOpened = true; // помечаем для submit
+                autoOpened = true;
                 window.__TW.log('callback', 'Авто-открытие: timeReached=' + timeReached + ' scrollReached=' + scrollReached);
 
-                // подменяем текст на консультационный
                 titleEl.textContent    = WIDGET_CONFIG.autoOpenTitle;
                 subtitleEl.textContent = WIDGET_CONFIG.autoOpenSubtitle;
 
                 openPopup();
             }
 
-            // Таймер времени на сайте
+            // Таймер — открывает по времени независимо от скролла
             setTimeout(function () {
                 timeReached = true;
                 tryAutoOpen();
             }, WIDGET_CONFIG.autoOpenTime * 1000);
 
-            // Отслеживание прокрутки (только после реального скролла пользователем)
-            var userScrolled = false;
+            // Скролл — открывает досрочно если прокрутил достаточно
             function checkScroll() {
-                if (!userScrolled) return;
                 var scrolled = (window.scrollY + window.innerHeight) / document.documentElement.scrollHeight;
                 if (scrolled >= WIDGET_CONFIG.autoOpenScroll) {
                     scrollReached = true;
@@ -600,10 +597,8 @@
                     tryAutoOpen();
                 }
             }
-            window.addEventListener('scroll', function () {
-                userScrolled = true;
-                checkScroll();
-            }, { passive: true });
+            window.addEventListener('scroll', checkScroll, { passive: true });
+            checkScroll(); // проверить сразу (короткая страница)
         }
     }
 
