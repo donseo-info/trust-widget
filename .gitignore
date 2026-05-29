@@ -1,3 +1,4 @@
 config.local.php
+config.php
 logs/*.log
 .DS_Store
