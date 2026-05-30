@@ -17,14 +17,33 @@ $key = trim($_GET['key'] ?? '');
 if (!$key) { echo '/* missing key */'; exit; }
 
 $db   = Database::getInstance();
-$site = $db->queryOne('SELECT id, debug_mode FROM sites WHERE api_key = ? AND is_active = 1', [$key]);
+$site = $db->queryOne('SELECT id, domain, debug_mode FROM sites WHERE api_key = ? AND is_active = 1', [$key]);
 if (!$site) { echo '/* site not found */'; exit; }
 
 $siteId = (int)$site['id'];
 
-$proto   = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
-$host    = $_SERVER['HTTP_HOST'] ?? 'localhost';
-$base    = $proto . '://' . $host . APP_BASE;
+$proto         = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+$host          = $_SERVER['HTTP_HOST'] ?? 'localhost';
+$base          = $proto . '://' . $host . APP_BASE;
+$requestDomain = strtolower(preg_replace('/:\d+$/', '', $host)); // strip port
+$allowedDomain = strtolower(trim($site['domain']));
+
+// ─── Domain check ─────────────────────────────────────────────────────────────
+$domainAllowed = ($requestDomain === $allowedDomain)
+    || ($requestDomain === 'www.' . $allowedDomain)
+    || ('www.' . $requestDomain === $allowedDomain)
+    || in_array($requestDomain, ['localhost', '127.0.0.1'], true); // dev bypass
+
+if (!$domainAllowed) {
+    $db->execute(
+        'INSERT INTO loader_attempts (api_key, site_id, request_domain, allowed_domain, ip, user_agent) VALUES (?,?,?,?,?,?)',
+        [$key, $siteId, $requestDomain, $allowedDomain,
+         $_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['REMOTE_ADDR'] ?? '',
+         $_SERVER['HTTP_USER_AGENT'] ?? '']
+    );
+    echo '/* domain not allowed */';
+    exit;
+}
 
 // Активные виджеты сайта
 $activeWidgets = $db->query(

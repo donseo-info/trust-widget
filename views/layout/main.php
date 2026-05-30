@@ -30,6 +30,11 @@
       <li class="<?= str_starts_with($_view ?? '', 'admin/stats') ? 'active' : '' ?>">
         <a href="<?= url('stats') ?>"><i class="bi bi-bar-chart"></i> Статистика</a>
       </li>
+      <?php if (($_userRole ?? '') === 'admin'): ?>
+      <li class="<?= str_starts_with($_view ?? '', 'admin/attempts') ? 'active' : '' ?>">
+        <a href="<?= url('attempts') ?>"><i class="bi bi-shield-exclamation text-danger"></i> Попытки</a>
+      </li>
+      <?php endif; ?>
     </ul>
     <div class="tw-sidebar-footer">
       <span class="text-muted small"><i class="bi bi-person-circle"></i> <?= htmlspecialchars($_userName ?? '') ?></span>

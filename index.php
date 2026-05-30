@@ -15,6 +15,7 @@ $router->any('/auth/logout',  [AuthController::class, 'logout']);
 // ─── Dashboard ───────────────────────────────────────────────────────────────
 $router->get('/',             [DashboardController::class, 'index']);
 $router->get('/stats',        [StatsController::class,    'index']);
+$router->get('/attempts',     [AttemptsController::class, 'index']);
 
 // ─── Sites ───────────────────────────────────────────────────────────────────
 $router->get('/sites',                        [SiteController::class, 'index']);

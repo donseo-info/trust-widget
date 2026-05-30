@@ -67,6 +67,7 @@ spl_autoload_register(function (string $class): void {
         'LeadController'          => TW_ROOT . '/controllers/LeadController.php',
         'IntegrationController'   => TW_ROOT . '/controllers/IntegrationController.php',
         'StatsController'         => TW_ROOT . '/controllers/StatsController.php',
+        'AttemptsController'      => TW_ROOT . '/controllers/AttemptsController.php',
     ];
     if (isset($map[$class])) {
         require_once $map[$class];

@@ -125,3 +125,18 @@ CREATE TABLE IF NOT EXISTS popup_events (
     INDEX idx_action     (action),
     CONSTRAINT fk_pe_site FOREIGN KEY (site_id) REFERENCES sites(id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
+
+-- ─── Loader Attempts (unauthorized domain attempts) ───────────────────────────
+CREATE TABLE IF NOT EXISTS loader_attempts (
+    id          INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    api_key     VARCHAR(64)   NOT NULL DEFAULT '',
+    site_id     INT UNSIGNED  DEFAULT NULL,
+    request_domain VARCHAR(255) NOT NULL DEFAULT '',
+    allowed_domain VARCHAR(255) NOT NULL DEFAULT '',
+    ip          VARCHAR(45)   NOT NULL DEFAULT '',
+    user_agent  TEXT,
+    created_at  TIMESTAMP     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    INDEX idx_api_key    (api_key),
+    INDEX idx_req_domain (request_domain),
+    INDEX idx_created_at (created_at)
+) ENGINE=InnoDB;
